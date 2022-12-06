@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import Home from './Screens/Home/Home';
+import { useFonts } from 'expo-font';
+import { NavigationContainer } from '@react-navigation/native';
+import { NativeBaseProvider, NativeBaseConfigProvider } from 'native-base';
+import Header from './Shared/Header';
+// Redux
+import { Provider } from 'react-redux';
+import { store } from './Redux/store';
 
-export default function App() {
+// Context API
+import Auth from './Context/store/Auth';
+import RootNavigator from './Navigators/RootNavigator';
+import HomeHeader from './components/HomeHeader';
+
+const App = () => {
+  const [loaded] = useFonts({
+    InterBold: require('./assets/fonts/Inter-Bold.ttf'),
+    InterSemiBold: require('./assets/fonts/Inter-SemiBold.ttf'),
+    InterMedium: require('./assets/fonts/Inter-Medium.ttf'),
+    InterRegular: require('./assets/fonts/Inter-Regular.ttf'),
+    InterLight: require('./assets/fonts/Inter-Light.ttf'),
+  });
+  if (!loaded) return null;
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Auth>
+      <Provider store={store}>
+        <NativeBaseProvider>
+          <NavigationContainer>
+            <Header />
+            <RootNavigator />
+          </NavigationContainer>
+        </NativeBaseProvider>
+      </Provider>
+    </Auth>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
