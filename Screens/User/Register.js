@@ -70,112 +70,113 @@ const Register = (props) => {
       });
   };
   return (
-    // <KeyboardAwareScrollView
-    //     viewIsInsideTabBar={true}
-    //     extraHeight={200}
-    //     enableOnAndroid={true}
-    // >
-    <View>
-      <FormContainer title={'Register'}>
-        <Input
-          placeholder={'Full Name'}
-          name={'name'}
-          id={'name'}
-          value={name}
-          onChangeText={(text) => setName(text)}
-        />
-        <Input
-          placeholder={'Phone No'}
-          name={'phone'}
-          id={'phone'}
-          value={phone}
-          keyboardType={'numeric'}
-          onChangeText={(text) => setPhone(text)}
-        />
-        <Input
-          placeholder={'Email ID'}
-          name={'email'}
-          id={'email'}
-          value={email}
-          onChangeText={(text) => setEmail(text.toLowerCase())}
-        />
-        <Input
-          placeholder={'Password'}
-          name={'password'}
-          id={'password'}
-          secureTextEntry={true}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <Input
-          placeholder={'Address'}
-          name={'address'}
-          id={'address'}
-          value={address}
-          onChangeText={(text) => setAddress(text)}
-        />
-        <View style={styles.inLine}>
-          <TextInput
-            style={[styles.input45, styles.inputNormal]}
-            placeholder={'City'}
-            name={'city'}
-            id={'city'}
-            value={city}
-            onChangeText={(text) => setCity(text)}
+    <KeyboardAwareScrollView
+      viewIsInsideTabBar={true}
+      extraHeight={200}
+      enableOnAndroid={true}
+    >
+      <View>
+        <FormContainer title={'Register'}>
+          <Input
+            placeholder={'Full Name'}
+            name={'name'}
+            id={'name'}
+            value={name}
+            onChangeText={(text) => setName(text)}
           />
-          <TextInput
-            style={[styles.input45, styles.inputNormal]}
-            placeholder={'PIN'}
-            name={'pin'}
-            id={'pin'}
-            value={pin}
+          <Input
+            placeholder={'Phone No'}
+            name={'phone'}
+            id={'phone'}
+            value={phone}
             keyboardType={'numeric'}
-            onChangeText={(text) => setPin(text)}
+            onChangeText={(text) => setPhone(text)}
           />
-        </View>
-        <View
-          style={[
-            styles.inLine,
-            { marginTop: 10, justifyContent: 'flex-start' },
-          ]}
-        >
-          <Text style={styles.normal18}>State: </Text>
-          <TextInput
-            style={styles.bold18}
-            placeholder={'State'}
-            name={'state'}
-            id={'state'}
-            value={state}
-            onChangeText={(text) => setState(text)}
+          <Input
+            placeholder={'Email ID'}
+            name={'email'}
+            id={'email'}
+            value={email}
+            onChangeText={(text) => setEmail(text.toLowerCase())}
           />
-          <Text style={styles.normal18}>, Country: </Text>
-          <TextInput
-            style={styles.bold18}
-            placeholder={'Country'}
-            name={'country'}
-            id={'country'}
-            value={country}
-            onChangeText={(text) => setCountry(text)}
+          <Input
+            placeholder={'Password'}
+            name={'password'}
+            id={'password'}
+            secureTextEntry={true}
+            onChangeText={(text) => setPassword(text)}
           />
-        </View>
-        <View>{error ? <Error message={error} /> : null}</View>
-
-        <View style={styles.buttonGroup}>
-          <EasyButton large primary onPress={() => register()}>
-            <Text style={{ color: 'white' }}>Register</Text>
-          </EasyButton>
-
-          <Text style={styles.betweenText}>Already have an account? </Text>
-
-          <EasyButton
-            large
-            secondary
-            onPress={() => props.navigation.navigate('Login')}
+          <Input
+            placeholder={'Address'}
+            name={'address'}
+            id={'address'}
+            value={address}
+            onChangeText={(text) => setAddress(text)}
+          />
+          <View style={styles.inLine}>
+            <TextInput
+              style={[styles.input45, styles.inputNormal]}
+              placeholder={'City'}
+              name={'city'}
+              id={'city'}
+              value={city}
+              onChangeText={(text) => setCity(text)}
+            />
+            <TextInput
+              style={[styles.input45, styles.inputNormal]}
+              placeholder={'PIN'}
+              name={'pin'}
+              id={'pin'}
+              value={pin}
+              keyboardType={'numeric'}
+              onChangeText={(text) => setPin(text)}
+            />
+          </View>
+          <View
+            style={[
+              styles.inLine,
+              { marginTop: 10, justifyContent: 'flex-start' },
+            ]}
           >
-            <Text style={{ color: 'white' }}>Back to Login</Text>
-          </EasyButton>
-        </View>
-      </FormContainer>
-    </View>
+            <Text style={styles.normal18}>State: </Text>
+            <TextInput
+              style={styles.bold18}
+              placeholder={'State'}
+              name={'state'}
+              id={'state'}
+              value={state}
+              onChangeText={(text) => setState(text)}
+            />
+            <Text style={styles.normal18}>, Country: </Text>
+            <TextInput
+              style={styles.bold18}
+              placeholder={'Country'}
+              name={'country'}
+              id={'country'}
+              value={country}
+              onChangeText={(text) => setCountry(text)}
+            />
+          </View>
+          <View>{error ? <Error message={error} /> : null}</View>
+
+          <View style={styles.buttonGroup}>
+            <EasyButton large primary onPress={() => register()}>
+              <Text style={{ color: 'white' }}>Register</Text>
+            </EasyButton>
+
+            <Text style={styles.betweenText}>Already have an account? </Text>
+
+            <EasyButton
+              large
+              secondary
+              onPress={() => props.navigation.navigate('Login')}
+            >
+              <Text style={{ color: 'white' }}>Back to Login</Text>
+            </EasyButton>
+          </View>
+        </FormContainer>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 

@@ -19,16 +19,16 @@ var userRoll = 'user';
 
 const MainNavigator = () => {
   const context = useContext(AuthGlobal);
-  // const [userRoll, setUserRoll] = useState('');
+  const [userRoll, setUserRoll] = useState('');
 
-  // useEffect(() => {
-  //   if (context.stateUser.user.userRoll !== undefined) {
-  //     setUserRoll(context.stateUser.user.userRoll.toLowerCase());
-  //   }
-  //   return () => {
-  //     setUserRoll('');
-  //   };
-  // }, [context.stateUser.user]);
+  useEffect(() => {
+    if (context.stateUser.user.userRoll !== undefined) {
+      setUserRoll(context.stateUser.user.userRoll.toLowerCase());
+    }
+    return () => {
+      setUserRoll('');
+    };
+  }, [context.stateUser.user]);
 
   return (
     <Tab.Navigator
@@ -40,7 +40,7 @@ const MainNavigator = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="HomeNavigator"
         component={HomeNavigator}
         options={{
           tabBarLabel: 'Home',

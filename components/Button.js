@@ -5,8 +5,8 @@ export const CircleButton = ({ imgUrl, handlePress, ...props }) => {
   return (
     <TouchableOpacity
       style={{
-        width: 40,
-        height: 40,
+        width: 32,
+        height: 32,
         backgroundColor: COLORS.white,
         position: 'absolute',
         borderRadius: SIZES.extraLarge,

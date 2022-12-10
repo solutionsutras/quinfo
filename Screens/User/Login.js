@@ -30,24 +30,24 @@ var frm = '';
 const Login = (props) => {
   const [from, setFrom] = useState(props.route.params.fromNav);
   const context = useContext(AuthGlobal);
-  const [userName, setUserName] = useState('u2@gmail.com');
+  const [userName, setUserName] = useState('q1@gmail.com');
   const [phone, setPhone] = useState();
-  const [password, setPassword] = useState('11111111');
+  const [password, setPassword] = useState('123');
   const [error, setError] = useState();
 
-  // useEffect(() => {
-  //   if (context.stateUser.isAuthenticated === true) {
-  //     props.navigation.navigate(
-  //       'MainNavigator',
-  //       { route: 'Home' },
-  //       { screen: 'Homescreen' }
-  //     );
-  //   }
+  useEffect(() => {
+    if (context.stateUser.isAuthenticated === true) {
+      props.navigation.navigate(
+        'MainNavigator',
+        { route: 'Home' },
+        { screen: 'Homescreen' }
+      );
+    }
 
-  //   return () => {};
-  // }, [context.stateUser.isAuthenticated]);
+    return () => {};
+  }, [context.stateUser.isAuthenticated]);
 
-  const handleSubmit = () => {
+  const handleLogin = () => {
     const user = {
       userId: userName,
       password: password,
@@ -91,8 +91,7 @@ const Login = (props) => {
           <EasyButton
             large
             primary
-            // onPress={() => handleSubmit()
-            onPress={() => props.navigation.navigate('MainNavigator')}
+            onPress={() => handleLogin()}
           >
             <Text style={{ color: 'white' }}>Login</Text>
           </EasyButton>

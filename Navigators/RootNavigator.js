@@ -1,4 +1,4 @@
-import React, { useContext,} from 'react';
+import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import AuthGlobal from '../Context/store/AuthGlobal';
 import MainNavigator from './MainNavigator';
@@ -8,10 +8,10 @@ import AuthNavigator from './AuthNavigator';
 const Stack = createStackNavigator();
 
 function RootStack() {
-  const context = useContext(AuthGlobal);
+const context = useContext(AuthGlobal);
   return (
     <Stack.Navigator>
-      {/* {context.stateUser.isAuthenticated ? ( */}
+      {context.stateUser.isAuthenticated ? (
         <Stack.Screen
           name="MainNavigator"
           component={MainNavigator}
@@ -19,15 +19,15 @@ function RootStack() {
             headerShown: false,
           }}
         />
-      {/* ) : ( */}
-        {/* <Stack.Screen
+      ) : (
+        <Stack.Screen
           name="AuthNavigator"
           component={AuthNavigator}
           options={{
             headerShown: false,
           }}
-        /> */}
-      {/* )} */}
+        />
+      )}
     </Stack.Navigator>
   );
 }

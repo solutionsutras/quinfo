@@ -1,6 +1,7 @@
 export const COLORS = {
   primary: '#001F2D',
   secondary: '#4D626C',
+  danger: '"#770000"',
   white: '#FFF',
   gray: '#74858C',
   headerTheme1: '#136641',

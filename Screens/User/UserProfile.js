@@ -51,8 +51,6 @@ const UserProfile = (props) => {
               })
               .then((user) => {
                 setProfile(user.data);
-
-                // console.log('Profile: ', profile);
               });
           })
           .catch((error) => console.log(error));
@@ -208,7 +206,7 @@ const UserProfile = (props) => {
             <View style={[styles.actionView]}>
               <TouchableOpacity
                 style={styles.actionButton}
-                onPress={() => props.navigation.navigate('Orders')}
+                // onPress={() => props.navigation.navigate('Orders')}
               >
                 <Icon
                   mr="2"
@@ -216,12 +214,12 @@ const UserProfile = (props) => {
                   color={colors.grey2}
                   as={<MaterialIcons name="badge" />}
                 />
-                <Text style={styles.actionText}>My Orders</Text>
+                <Text style={styles.actionText}>My Favorites</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.actionButton}
-                onPress={() => props.navigation.navigate('UserWishList')}
+                // onPress={() => props.navigation.navigate('UserWishList')}
                 // onPress={{}}
               >
                 <Icon
@@ -237,7 +235,7 @@ const UserProfile = (props) => {
             <View style={[styles.actionView]}>
               <TouchableOpacity
                 style={styles.actionButton}
-                onPress={() => props.navigation.navigate('UserTransactions')}
+                // onPress={() => props.navigation.navigate('UserTransactions')}
                 // onPress={{}}
               >
                 <Icon
@@ -246,7 +244,7 @@ const UserProfile = (props) => {
                   color={colors.grey2}
                   as={<MaterialCommunityIcons name="bank-transfer" />}
                 />
-                <Text style={styles.actionText}>My Transactions</Text>
+                <Text style={styles.actionText}>Subscriptions</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
