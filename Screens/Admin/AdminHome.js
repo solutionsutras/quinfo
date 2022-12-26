@@ -123,6 +123,7 @@ const AdminHome = (props) => {
     <View style={{ backgroundColor: colors.cardBackground }}>
       <View style={styles.titleView}>
         <Text style={styles.title}>Admin Dashboard</Text>
+        <Text style={{}}>Admin Dashboard Follows</Text>
       </View>
 
       {/* <View style={styles.container}>
