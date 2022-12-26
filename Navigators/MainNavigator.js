@@ -13,6 +13,8 @@ import HomeNavigator from './HomeNavigator';
 import UserNavigator from './UserNavigator';
 import SubscriptionsNavigator from './SubscriptionsNavigator';
 import UserNotifications from '../Screens/UserNotifications/UserNotifications';
+import AdminMainNavigator from './AdminNavigator/AdminMainNavigator';
+import AgentsMainNavigator from './AgentsNavigator/AgentsMainNavigator';
 
 const Tab = createBottomTabNavigator();
 var userRoll = 'user';
@@ -68,7 +70,7 @@ const MainNavigator = () => {
         }}
       />
 
-      {/* {userRoll === 'admin' ? (
+      {userRoll === 'admin' ? (
         <Tab.Screen
           name="Admin"
           // component={AdminTopTabNavigator}
@@ -85,7 +87,25 @@ const MainNavigator = () => {
             tabBarLabel: 'Admin Panel',
           }}
         />
-      ) : null} */}
+      ) : null}
+
+      {userRoll === 'agent' ? (
+        <Tab.Screen
+          name="Agents"
+          component={AgentsMainNavigator}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Icon
+                name="admin-panel-settings"
+                type="material"
+                color={color}
+                size={size}
+              />
+            ),
+            tabBarLabel: 'Agents Dashboard',
+          }}
+        />
+      ) : null}
 
       {/* <Tab.Screen
         name="Orders"

@@ -8,6 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 import { Button } from 'native-base';
+import { assets, COLORS, SIZES } from '../../constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import EasyButton from '../../Shared/StyledComponents/EasyButton';
@@ -72,7 +73,7 @@ const ResetPassword = (props) => {
 
   useEffect(() => {
     setConfig({ headers: { Authorization: `Bearer ${token}` } });
-    return () => {};
+    return () => { };
   }, [token]);
 
   const sendSms = () => {
@@ -262,7 +263,7 @@ const ResetPassword = (props) => {
   return (
     <FormContainer title={''} style={{ height: height }}>
       {!otpSent ? (
-        <View style={styles.buttonGroup}>
+        <View>
           <Text style={styles.label}>
             Enter registered phone number to recieve OTP
           </Text>
@@ -283,9 +284,15 @@ const ResetPassword = (props) => {
 
           <View>
             {error ? <Error message={error} /> : null}
-            <EasyButton large primary onPress={() => sendSms()}>
-              <Text style={{ color: 'white' }}>Send OTP</Text>
-            </EasyButton>
+
+            <TouchableOpacity style={[styles.buttonStyle,
+            { backgroundColor: COLORS.headerTheme4 }]}
+              // disabled={!agree}
+              onPress={() => sendSms()}>
+              <Text style={styles.loginText}>
+                SEND OTP
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       ) : (
@@ -355,13 +362,14 @@ const ResetPassword = (props) => {
         </View>
       )}
 
-      <EasyButton
-        large
-        secondary
-        onPress={() => props.navigation.navigate('Login')}
-      >
-        <Text style={{ color: 'white' }}>Back to Login</Text>
-      </EasyButton>
+      <TouchableOpacity style={[styles.buttonStyle,
+      { backgroundColor: COLORS.headerTheme2 }]}
+        // disabled={!agree}
+        onPress={() => props.navigation.navigate('Login')}>
+        <Text style={styles.loginText}>
+          BACK TO LOGIN
+        </Text>
+      </TouchableOpacity>
     </FormContainer>
   );
 };
@@ -369,11 +377,23 @@ const ResetPassword = (props) => {
 export default ResetPassword;
 
 const styles = StyleSheet.create({
-  buttonGroup: {
-    marginTop: 40,
-    width: '80%',
+  buttonStyle: {
     alignItems: 'center',
+    marginTop: 20,
+    height: 40,
+    borderRadius: 5,
   },
+  loginText: {
+    color: 'white',
+    paddingTop: 10,
+    fontSize: 15,
+    // fontFamily: 'regular'
+  },
+  // buttonGroup: {
+  //   marginTop: 40,
+  //   width: '80%',
+  //   alignItems: 'center',
+  // },
   betweenText: {
     marginTop: 20,
     marginBottom: 5,
@@ -413,18 +433,21 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   phoneNo: {
-    width: '80%',
+    width: '95%',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginTop: 15,
+    marginLeft: 8
   },
   countryCode: {
     backgroundColor: 'white',
     borderColor: colors.buttons,
     borderWidth: 1,
     borderRadius: 5,
-    padding: 10,
-    marginRight: 15,
-    height: 42,
+    padding: 11.3,
+    marginBottom: 4,
+    marginRight: 10,
   },
   countryCodeText: {
     color: colors.grey1,
@@ -443,9 +466,9 @@ const styles = StyleSheet.create({
     fontWeight: '300',
   },
   label: {
-    fontStyle: 'italic',
+    fontSize: 16,
     fontWeight: '300',
     marginBottom: 5,
-    marginTop:10,
+    marginLeft: 5,
   },
 });

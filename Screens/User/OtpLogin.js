@@ -5,8 +5,11 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  
 } from 'react-native';
+import { assets, COLORS, SIZES } from '../../constants'
 import { Button } from 'native-base';
+import Checkbox from 'expo-checkbox';
 
 import FormContainer from '../../Shared/Forms/FormContainer';
 import Input from '../../Shared/Forms/Input';
@@ -41,6 +44,7 @@ const OtpLogin = (props) => {
   const [userFound, setUserFound] = useState();
   const [smsExpTime, setSmsExpTime] = useState(3600);
   const [otpExpired, setOtpExpired] = useState(false);
+  const [agree, setAgree] = useState(false)
 
   useEffect(() => {
     if (context.stateUser.isAuthenticated === true) {
@@ -53,7 +57,7 @@ const OtpLogin = (props) => {
     setRandomOtp(otp);
   }, []);
 
-  
+
   // Function to send SMS through thr SMS Gateway
   const sendOtpSms = () => {
     const data = {
@@ -159,8 +163,8 @@ const OtpLogin = (props) => {
   return (
     <FormContainer title={''} style={{ height: height }}>
       {!otpSent ? (
-        <View style={styles.buttonGroup}>
-          <Text>Enter Phone Number</Text>
+        <View>
+          <Text style={{fontSize:18, color:'gray'}}>Enter Phone Number</Text>
           <View style={styles.phoneNo}>
             <View style={styles.countryCode}>
               <Text style={styles.countryCodeText}>+91</Text>
@@ -176,9 +180,27 @@ const OtpLogin = (props) => {
 
           <View>
             {error ? <Error message={error} /> : null}
-            <EasyButton large primary onPress={() => sendSms()}>
+            {/* <EasyButton large primary onPress={() => sendSms()}>
               <Text style={{ color: 'white' }}>Send OTP</Text>
-            </EasyButton>
+            </EasyButton> */}
+            <View style={styles.wrapper}>
+              <Checkbox
+                value={agree}
+                onValueChange={() => setAgree(!agree)}
+                color={agree ? COLORS.headerTheme4 : undefined}
+              />
+              <Text style={styles.wrapperText}>
+                I have read and agreed with the TC
+              </Text>
+            </View>
+            <TouchableOpacity style={[styles.buttonStyle,
+            { backgroundColor: agree ? COLORS.headerTheme4 : 'gray', }]}
+              disabled={!agree}
+              large primary onPress={() => sendSms()}>
+              <Text style={styles.loginText}>
+                LOGIN
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       ) : (
@@ -218,31 +240,54 @@ const OtpLogin = (props) => {
 export default OtpLogin;
 
 const styles = StyleSheet.create({
-  buttonGroup: {
-    marginTop: 10,
-    width: '80%',
-    alignItems: 'center',
-  },
+  // buttonGroup: {
+  //   marginTop: 10,
+  //   width: '80%',
+  //   alignItems: 'center',
+  // },
   betweenText: {
     marginTop: 20,
     marginBottom: 5,
     alignSelf: 'center',
   },
   phoneNo: {
-    width: '80%',
+    width: '95%',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    marginTop:15,
+    marginLeft:8
   },
   countryCode: {
     backgroundColor: 'white',
     borderColor: colors.buttons,
     borderWidth: 1,
     borderRadius: 5,
-    padding: 10,
+    padding: 8.9,
+    marginBottom:4,
     marginRight: 10,
   },
   countryCodeText: {
     fontSize: 18,
+  },
+  buttonStyle: {
+    alignItems: 'center',
+    marginTop: 30,
+    height: 40,
+    borderRadius: 5,
+  },
+  wrapper: {
+    paddingTop: 30,
+    flexDirection: 'row',
+  },
+  wrapperText: {
+    paddingLeft: 10,
+    // fontFamily: 'regular'
+  },
+  loginText: {
+    color: 'white',
+    paddingTop: 10,
+    fontSize: 15,
+    // fontFamily: 'regular'
   },
 });

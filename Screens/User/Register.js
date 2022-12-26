@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import { Button } from 'native-base';
+import { assets, COLORS, SIZES } from '../../constants';
+import Checkbox from 'expo-checkbox';
 
 import axios from 'axios';
 import baseUrl from '../../assets/common/baseUrl';
@@ -12,6 +21,7 @@ import Toast from 'react-native-toast-message';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import EasyButton from '../../Shared/StyledComponents/EasyButton';
 import { colors } from '../../assets/global/globalStyles';
+const { width, height } = Dimensions.get('window');
 
 const Register = (props) => {
   const [email, setEmail] = useState('');
@@ -24,6 +34,7 @@ const Register = (props) => {
   const [country, setCountry] = useState('India');
   const [pin, setPin] = useState('');
   const [error, setError] = useState('');
+  const [agree, setAgree] = useState(false);
 
   const register = () => {
     if (name === '' || email === '' || phone === '' || password === '') {
@@ -76,15 +87,17 @@ const Register = (props) => {
       enableOnAndroid={true}
     >
       <View>
-        <FormContainer title={'Register'}>
-          <Input
+        <FormContainer title={'Register'} style={styles.inputFields}>
+          <TextInput
+            style={styles.inputStyle}
             placeholder={'Full Name'}
             name={'name'}
             id={'name'}
             value={name}
             onChangeText={(text) => setName(text)}
           />
-          <Input
+          <TextInput
+            style={styles.inputStyle}
             placeholder={'Phone No'}
             name={'phone'}
             id={'phone'}
@@ -92,21 +105,24 @@ const Register = (props) => {
             keyboardType={'numeric'}
             onChangeText={(text) => setPhone(text)}
           />
-          <Input
+          <TextInput
+            style={styles.inputStyle}
             placeholder={'Email ID'}
             name={'email'}
             id={'email'}
             value={email}
             onChangeText={(text) => setEmail(text.toLowerCase())}
           />
-          <Input
+          <TextInput
+            style={styles.inputStyle}
             placeholder={'Password'}
             name={'password'}
             id={'password'}
             secureTextEntry={true}
             onChangeText={(text) => setPassword(text)}
           />
-          <Input
+          <TextInput
+            style={styles.inputStyle}
             placeholder={'Address'}
             name={'address'}
             id={'address'}
@@ -159,20 +175,40 @@ const Register = (props) => {
           </View>
           <View>{error ? <Error message={error} /> : null}</View>
 
-          <View style={styles.buttonGroup}>
-            <EasyButton large primary onPress={() => register()}>
-              <Text style={{ color: 'white' }}>Register</Text>
-            </EasyButton>
+          <View style={styles.wrapper}>
+            <Checkbox
+              value={agree}
+              onValueChange={() => setAgree(!agree)}
+              color={agree ? COLORS.headerTheme4 : undefined}
+            />
+            <Text style={styles.wrapperText}>
+              I have read and agreed with the TC
+            </Text>
+          </View>
+          <View>
+            <TouchableOpacity
+              style={[
+                styles.buttonStyle,
+                { backgroundColor: agree ? COLORS.headerTheme1 : 'gray' },
+              ]}
+              disabled={!agree}
+              onPress={() => register()}
+            >
+              <Text style={styles.loginText}>REGISTER</Text>
+            </TouchableOpacity>
 
             <Text style={styles.betweenText}>Already have an account? </Text>
 
-            <EasyButton
-              large
-              secondary
+            <TouchableOpacity
+              style={[
+                styles.buttonStyle,
+                { backgroundColor: COLORS.headerTheme4 },
+              ]}
+              // disabled={!agree}
               onPress={() => props.navigation.navigate('Login')}
             >
-              <Text style={{ color: 'white' }}>Back to Login</Text>
-            </EasyButton>
+              <Text style={styles.loginText}>LOGIN</Text>
+            </TouchableOpacity>
           </View>
         </FormContainer>
       </View>
@@ -183,10 +219,20 @@ const Register = (props) => {
 export default Register;
 
 const styles = StyleSheet.create({
-  buttonGroup: {
-    marginTop: 40,
-    width: '80%',
-    alignItems: 'center',
+  // buttonGroup: {
+  //   marginTop: 40,
+  //   width: '80%',
+  //   alignItems: 'center',
+  // },
+  inputStyle: {
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.3)',
+    paddingHorizontal: 15,
+    paddingVertical: 7,
+    borderRadius: 5,
+    fontSize: 18,
+    marginBottom: 10,
+    width: width * 0.9,
   },
   betweenText: {
     marginTop: 20,
@@ -194,7 +240,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   inLine: {
-    width: '90%',
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
@@ -209,11 +255,31 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: colors.buttons,
+    borderColor: 'gray',
   },
   inputProtected: {
     backgroundColor: 'transparent',
   },
   normal18: { fontSize: 18 },
   bold18: { fontWeight: 'bold', fontSize: 18 },
+  buttonStyle: {
+    alignItems: 'center',
+    marginTop: 10,
+    height: 40,
+    borderRadius: 5,
+  },
+  loginText: {
+    color: 'white',
+    paddingTop: 10,
+    fontSize: 15,
+    // fontFamily: 'regular'
+  },
+  wrapper: {
+    paddingTop: 30,
+    flexDirection: 'row',
+  },
+  wrapperText: {
+    paddingLeft: 10,
+    // fontFamily: 'regular'
+  },
 });

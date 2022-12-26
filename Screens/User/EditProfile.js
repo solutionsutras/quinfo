@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Button } from 'native-base';
+import { assets, COLORS, SIZES } from '../../constants'
 
 import axios from 'axios';
 import baseUrl from '../../assets/common/baseUrl';
@@ -37,7 +38,7 @@ const EditProfile = (props) => {
     ) {
       props.navigation.navigate('Login');
     }
-    return () => {};
+    return () => { };
   }, [context.stateUser.isAuthenticated]);
 
   useEffect(() => {
@@ -61,7 +62,7 @@ const EditProfile = (props) => {
       .get(`${baseUrl}users/${context.stateUser.user.userId}`, config)
       .then((user) => {
         setProfile(user.data);
-        console.log('profile: ', profile);
+        // console.log('profile: ', profile);
       })
       .catch((error) => console.log(error));
     return () => {
@@ -83,10 +84,9 @@ const EditProfile = (props) => {
             </Text>
           </View>
 
-          <View style={{ width: '90%' }}>
-            <Text style={{ marginLeft: 5 }}>Name</Text>
-            <TextInput
-              style={[styles.input, styles.inputNormal]}
+          <View style={{ width: '98%' }}>
+            <Text style={{ fontSize: 18, color: 'gray', marginBottom: 5 }}>Name</Text>
+            <TextInput style={styles.inputStyle}
               placeholder={'Full Name'}
               name={'name'}
               id={'name'}
@@ -94,10 +94,9 @@ const EditProfile = (props) => {
               onChangeText={(text) => setName(text)}
             />
           </View>
-          <View style={{ width: '90%' }}>
-            <Text style={{ marginLeft: 5 }}>Phone No</Text>
-            <TextInput
-              style={[styles.input, styles.inputNormal]}
+          <View style={{ width: '98%' }}>
+            <Text style={{ fontSize: 18, color: 'gray', marginBottom: 5 }}>Phone No</Text>
+            <TextInput style={styles.inputStyle}
               placeholder={'Phone No'}
               name={'phone'}
               id={'phone'}
@@ -106,10 +105,9 @@ const EditProfile = (props) => {
               onChangeText={(text) => setPhone(text)}
             />
           </View>
-          <View style={{ width: '90%' }}>
-            <Text style={{ marginLeft: 5 }}>Email ID</Text>
-            <TextInput
-              style={[styles.input, styles.inputNormal]}
+          <View style={{ width: '98%' }}>
+            <Text style={{ fontSize: 18, color: 'gray', marginBottom: 5 }}>Email ID</Text>
+            <TextInput style={styles.inputStyle}
               placeholder={'Email ID'}
               name={'email'}
               id={'email'}
@@ -124,10 +122,9 @@ const EditProfile = (props) => {
             secureTextEntry={true}
             onChangeText={(text) => setPassword(text)}
           /> */}
-          <View style={{ width: '90%' }}>
-            <Text style={{ marginLeft: 5 }}>Address</Text>
-            <TextInput
-              style={[styles.input, styles.inputNormal]}
+          <View style={{ width: '98%' }}>
+            <Text style={{ fontSize: 18, color: 'gray', marginBottom: 5 }}>Address</Text>
+            <TextInput style={styles.inputStyle}
               placeholder={'Address'}
               name={'address'}
               id={'address'}
@@ -137,7 +134,7 @@ const EditProfile = (props) => {
           </View>
           <View style={styles.inLine}>
             <View style={styles.input50}>
-              <Text style={{ marginLeft: 5 }}>City</Text>
+              <Text style={{ marginLeft: 5, fontSize: 18, color: 'gray' }}>City</Text>
               <TextInput
                 style={styles.inputNormal}
                 placeholder={'City'}
@@ -148,7 +145,7 @@ const EditProfile = (props) => {
               />
             </View>
             <View style={styles.input50}>
-              <Text style={{ marginLeft: 5 }}>PIN</Text>
+              <Text style={{ marginLeft: 5, fontSize: 18, color: 'gray' }}>PIN</Text>
               <TextInput
                 style={styles.inputNormal}
                 placeholder={'PIN'}
@@ -162,7 +159,7 @@ const EditProfile = (props) => {
           </View>
           <View style={styles.inLine}>
             <View style={styles.input50}>
-              <Text style={{ marginLeft: 5 }}>State</Text>
+              <Text style={{ marginLeft: 5, fontSize: 18, color: 'gray' }}>State</Text>
               <TextInput
                 style={styles.inputNormal}
                 placeholder={'State'}
@@ -174,7 +171,7 @@ const EditProfile = (props) => {
             </View>
 
             <View style={styles.input50}>
-              <Text style={{ marginLeft: 5 }}>Country</Text>
+              <Text style={{ marginLeft: 5, fontSize: 18, color: 'gray' }}>Country</Text>
               <TextInput
                 style={styles.inputNormal}
                 placeholder={'Country'}
@@ -188,10 +185,15 @@ const EditProfile = (props) => {
 
           <View>{error ? <Error message={error} /> : null}</View>
 
-          <View style={styles.buttonGroup}>
-            <EasyButton large primary onPress={() => updateProfile()}>
-              <Text style={{ color: 'white' }}>Update</Text>
-            </EasyButton>
+          <View>
+            <TouchableOpacity style={[styles.buttonStyle,
+            { backgroundColor: COLORS.headerTheme4 }]}
+              // disabled={!agree}
+              onPress={() => updateProfile()}>
+              <Text style={styles.loginText}>
+                UPDATE
+              </Text>
+            </TouchableOpacity>
           </View>
         </FormContainer>
       ) : null}
@@ -202,6 +204,15 @@ const EditProfile = (props) => {
 export default EditProfile;
 
 const styles = StyleSheet.create({
+  inputStyle: {
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.3)',
+    paddingHorizontal: 15,
+    paddingVertical: 7,
+    borderRadius: 5,
+    fontSize: 18,
+    marginBottom: 10
+  },
   title: {
     marginBottom: 10,
     fontSize: 16,
@@ -213,10 +224,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inLine: {
-    width: '90%',
+    width: '100%',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
   input: {
     width: '100%',
@@ -231,11 +241,23 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: colors.buttons,
+    borderColor: 'gray',
   },
   inputProtected: {
     backgroundColor: 'transparent',
   },
   normal18: { fontSize: 18 },
   bold18: { fontWeight: 'bold', fontSize: 18 },
+  buttonStyle: {
+    alignItems: 'center',
+    marginTop: 10,
+    height: 40,
+    borderRadius: 5,
+  },
+  loginText: {
+    color: 'white',
+    paddingTop: 10,
+    fontSize: 15,
+    // fontFamily: 'regular'
+  },
 });

@@ -14,7 +14,7 @@ import { CircleButton } from '../../components/Button';
 var { height, width } = Dimensions.get('window');
 const ServicesCard = (props) => {
   const { item, id, categName, icon, image, index } = props;
-  console.log('In ServicesCard - props.item: ', props.item);
+  // console.log('In ServicesCard - props.item: ', props.item);
   return (
     <View>
       <TouchableOpacity

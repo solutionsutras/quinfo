@@ -81,8 +81,8 @@ const Services = (props) => {
                 </View>
               ) : (
                 <View style={[styles.center, { height: height / 2 }]}>
-                  <Text style={{ fontSize: 16, color: 'red' }}>
-                    No items found
+                  <Text style={{ fontSize: 16, color: 'gray', textAlign:'center' }}>
+                    Wait a moment!!!
                   </Text>
                 </View>
               )}

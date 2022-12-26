@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, } from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,9 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
+import { assets, COLORS, SIZES } from '../../constants'
 import { Button } from 'native-base';
+import Checkbox from 'expo-checkbox';
 
 import FormContainer from '../../Shared/Forms/FormContainer';
 // import Input from '../../Shared/Forms/Input';
@@ -23,17 +25,18 @@ import EasyButton from '../../Shared/StyledComponents/EasyButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors } from '../../assets/global/globalStyles';
 
-var { height } = Dimensions.get('window');
-const image = require('../../assets/login-bg.png');
-var frm = '';
+// var { height } = Dimensions.get('window');
+// const image = require('../../assets/login-bg.png');
+// var frm = '';
 
 const Login = (props) => {
   const [from, setFrom] = useState(props.route.params.fromNav);
   const context = useContext(AuthGlobal);
-  const [userName, setUserName] = useState('q1@gmail.com');
+  const [userName, setUserName] = useState('+919337245731');
   const [phone, setPhone] = useState();
   const [password, setPassword] = useState('123');
   const [error, setError] = useState();
+  const [agree, setAgree] = useState(false)
 
   useEffect(() => {
     if (context.stateUser.isAuthenticated === true) {
@@ -44,7 +47,7 @@ const Login = (props) => {
       );
     }
 
-    return () => {};
+    return () => { };
   }, [context.stateUser.isAuthenticated]);
 
   const handleLogin = () => {
@@ -59,118 +62,169 @@ const Login = (props) => {
     }
   };
   return (
-    <ImageBackground source={image} resizeMode="cover">
-      <FormContainer style={{ height: height }}>
-        {/* <Text>from: {from}</Text> */}
-        <View style={styles.inputView}>
-          <Text style={styles.inputViewText}>Email ID / Phone No</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={'Email ID/Phone No'}
-            name={'userName'}
-            id={'userName'}
-            value={userName}
-            onChangeText={(text) => setUserName(text.toLowerCase())}
-          />
-        </View>
-        <View style={styles.inputView}>
-          <Text style={styles.inputViewText}>Password</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={'Password'}
-            name={'password'}
-            id={'password'}
-            value={password}
-            secureTextEntry={true}
-            onChangeText={(text) => setPassword(text)}
-          />
-        </View>
-        <View style={styles.buttonGroup}>
-          {error ? <Error message={error} /> : null}
+    <FormContainer style={styles.mainContainer}>
+      {/* <Text style={styles.mainHeader}>Login Form</Text> */}
+      <Text style={styles.description}>
+        You can reach us any time 
+      </Text>
+      <View style={styles.viewInputContainer}>
+        <Text style={styles.labels}>
+          Enter your Name
+        </Text>
+        <TextInput style={styles.inputStyle}
+          placeholder={'Email ID/Phone No'}
+          name={'userName'}
+          id={'userName'}
+          value={userName}
+          onChangeText={(text) => setUserName(text.toLowerCase())} />
+      </View>
 
-          <EasyButton
-            large
-            primary
-            onPress={() => handleLogin()}
-          >
-            <Text style={{ color: 'white' }}>Login</Text>
-          </EasyButton>
+      <View style={styles.viewInputContainer}>
+        <Text style={styles.labels}>
+          Enter your Password
+        </Text>
+        <TextInput style={styles.inputStyle}
+          placeholder={'Password'}
+          name={'password'}
+          id={'password'}
+          value={password}
+          secureTextEntry={true}
+          onChangeText={(text) => setPassword(text)}
+        />
+      </View>
 
-          <Text style={styles.betweenText}>------------- OR -------------</Text>
+      <View style={styles.wrapper}>
+        <Checkbox
+          value={agree}
+          onValueChange={() => setAgree(!agree)}
+          color={agree ? COLORS.headerTheme4 : undefined}
+        />
+        <Text style={styles.wrapperText}>
+          I have read and agreed with the TC
+        </Text>
+      </View>
 
-          <EasyButton
-            large
-            primary
-            onPress={() => {
-              props.navigation.navigate('OtpLogin');
-            }}
-          >
-            <Text style={{ color: 'white' }}>Login using OTP</Text>
-          </EasyButton>
-
-          <TouchableOpacity
-            onPress={() => {
-              props.navigation.navigate('ResetPassword');
-            }}
-          >
-            <Text
-              style={[
-                styles.betweenText,
-                { color: colors.buttons, textDecorationLine: 'underline' },
-              ]}
-            >
-              Forgot password?
-            </Text>
-          </TouchableOpacity>
-          <Text style={[styles.betweenText, { marginTop: 80 }]}>
-            Don't have an account yet?{' '}
-          </Text>
-
-          <EasyButton
-            large
-            secondary
-            onPress={() => props.navigation.navigate('Register')}
-          >
-            <Text style={{ color: 'white' }}>Register</Text>
-          </EasyButton>
-        </View>
-
-        <View style={styles.buttonGroup}></View>
-      </FormContainer>
-    </ImageBackground>
+      <TouchableOpacity style={[styles.buttonStyle,
+      { backgroundColor: agree ? COLORS.headerTheme4 : 'gray', }]}
+        disabled={!agree}
+        onPress={() => handleLogin()}>
+        <Text style={styles.loginText}>
+          LOGIN
+        </Text>
+      </TouchableOpacity>
+      <Text style={styles.betweenText}>------------- OR -------------</Text>
+      <TouchableOpacity style={[styles.buttonStyle,
+      { backgroundColor: COLORS.headerTheme2 }]}
+        // disabled={!agree}
+        onPress={() => {
+          props.navigation.navigate('OtpLogin');
+        }}>
+        <Text style={styles.loginText}>
+          LOGIN USING OTP
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate('ResetPassword');
+        }}
+      >
+        <Text
+          style={[
+            styles.betweenText,
+            { color: COLORS.headerTheme4, textDecorationLine: 'underline' },
+          ]}
+        >
+          Forgot password?
+        </Text>
+      </TouchableOpacity>
+      <Text style={[styles.betweenText, { marginTop: 80 }]}>
+        Don't have an account yet?{' '}
+      </Text>
+      <TouchableOpacity style={[styles.buttonStyle,
+      { backgroundColor: COLORS.headerTheme1 }]}
+        // disabled={!agree}
+        onPress={() => props.navigation.navigate('Register')}
+      >
+        <Text style={styles.loginText}>
+          REGISTER
+        </Text>
+      </TouchableOpacity>
+    </FormContainer>
   );
 };
 
 export default Login;
 
 const styles = StyleSheet.create({
-  buttonGroup: {
-    marginTop: 10,
-    width: '80%',
-    alignItems: 'center',
+  mainContainer: {
+    height: '100%',
+    paddingHorizontal: 30,
+    paddingTop: 30,
+    backgroundColor: '#fff',
   },
-  betweenText: {
+  // mainHeader: {
+  //   fontSize: 25,
+  //   color: '#344055',
+  //   fontWeight: 'bold',
+  //   paddingTop: 20,
+  //   paddingBottom: 15,
+  //   // fontFamily: 'bold',
+  // },
+  description: {
+    fontSize: 20,
+    color: '#7d7d7d',
     marginTop: 10,
     marginBottom: 5,
-    alignSelf: 'center',
+    lineHeight: 25,
+    // fontFamily: 'regular',
   },
-  inputView: {
-    justifyContent: 'flex-start',
-    width: '75%',
+  viewInputContainer: {
+    marginTop: 20,
   },
-  inputViewText: {
-    fontStyle: 'italic',
-    color: colors.grey1,
+  labels: {
+    fontSize: 18,
+    color: '#7d7d7d',
+    marginTop: 10,
+    marginBottom: 5,
+    lineHeight: 25,
+    // fontFamily: 'regular'
   },
-  input: {
-    height: 42,
-    backgroundColor: 'white',
-    marginTop: 0,
-    marginBottom: 15,
-    paddingLeft: 15,
-    borderRadius: 5,
+  inputStyle: {
     borderWidth: 1,
-    borderColor: colors.buttons,
-    color: colors.grey2,
+    borderColor: 'rgba(0,0,0,0.3)',
+    paddingHorizontal: 15,
+    paddingVertical: 7,
+    borderRadius: 5,
+    fontSize: 18,
+  },
+  wrapper: {
+    paddingTop: 30,
+    flexDirection: 'row',
+  },
+  wrapperText: {
+    paddingLeft: 10,
+    // fontFamily: 'regular'
+  },
+  buttonStyle: {
+    alignItems: 'center',
+    marginTop: 30,
+    height: 40,
+    borderRadius: 5,
+    width:200,
+  },
+  loginText: {
+    color: 'white',
+    paddingTop: 10,
+    fontSize: 15,
+    // fontFamily: 'regular'
+  },
+  betweenText: {
+    marginTop: 25,
+    marginBottom: 0,
+    alignSelf: 'center',
+    color: 'gray'
   },
 });
+
+
+// style={[{ height: height }

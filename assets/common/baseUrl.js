@@ -9,7 +9,7 @@ let baseUrl = ''
 }
 
 // google app engine api
-// baseUrl = 'https://quinfo-api.ue.r.appspot.com/api/v1/';
+baseUrl = 'https://quinfo-api.ue.r.appspot.com/api/v1/';
 
 
 export default baseUrl;
