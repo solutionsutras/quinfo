@@ -1,4 +1,5 @@
-export const COLORS = {
+import assets from "./assets";
+const COLORS = {
   primary: '#001F2D',
   secondary: '#4D626C',
   danger: '"#770000"',
@@ -8,9 +9,23 @@ export const COLORS = {
   headerTheme2: '#FF9702',
   headerTheme3: '#87CEEB',
   headerTheme4: '#1499F0',
+  buttons: '#047BD5',
+  grey1: '#43484d',
+  grey2: '#526977',
+  grey3: '#86939e',
+  grey4: '#bdc6cf',
+  grey5: '#e1e8ee',
+  grey6: '#F6F6F6',
+  CardComment: '#86939e',
+  cardBackground: '#FFFFFF',
+  statusbar: '#046BD0',
+  headerText: '#FFFFFF',
+  background2: '#F0F0F0',
+  lightgreen: '#66DF48',
+  black: '#1F1F1F',
 };
 
-export const SIZES = {
+const SIZES = {
   base: 8,
   small: 12,
   font: 14,
@@ -19,7 +34,7 @@ export const SIZES = {
   extraLarge: 24,
 };
 
-export const FONTS = {
+const FONTS = {
   bold: "InterBold",
   semiBold: "InterSemiBold",
   medium: "InterMedium",
@@ -27,7 +42,7 @@ export const FONTS = {
   light: "InterLight",
 };
 
-export const SHADOWS = {
+const SHADOWS = {
   light: {
     shadowColor: COLORS.gray,
     shadowOffset: {
@@ -61,3 +76,5 @@ export const SHADOWS = {
     elevation: 14,
   },
 };
+
+export { assets, COLORS, SHADOWS, SIZES, FONTS };

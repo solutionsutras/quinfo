@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import { assets, COLORS, SIZES } from '../../constants'
+import { COLORS, SIZES } from '../../constants/theme'
 import { Button } from 'native-base';
 import Checkbox from 'expo-checkbox';
 

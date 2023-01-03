@@ -16,12 +16,13 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 
 import baseUrl from '../../assets/common/baseUrl';
-import BusesData from './BusesData';
+import BusesCard from './BusesCard';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { color, Icon } from '@rneui/base';
-import { COLORS, SIZES, SHADOWS, assets, FONTS } from '../../constants';
+import { COLORS, SIZES, SHADOWS, assets, FONTS } from '../../constants/theme';
+import SearchBuses from './SearchBuses';
 
 var { height, width } = Dimensions.get('window');
 
@@ -56,7 +57,7 @@ const ListHeader = () => {
 const Buses = (props) => {
   const [busesData, setBusesData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [focus, setFocus] = useState();
+  const [focus, setFocus] = useState(false);
   const [active, setActive] = useState();
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState();
@@ -103,91 +104,125 @@ const Buses = (props) => {
       };
     }, [])
   );
+
+  const openList = () => {
+    setFocus(true);
+  };
+
+  const onBlur = () => {
+    setFocus(false);
+    Keyboard.dismiss();
+  };
+
+  const seachBuses = (text) => {
+    setFilteredData(
+      busesData.filter(
+        (i) =>
+          i.regNo.toLowerCase().includes(text.toLowerCase()) ||
+          i.name.toLowerCase().includes(text.toLowerCase()) ||
+          i.busType.source.toLowerCase().includes(text.toLowerCase()) ||
+          i.busType.destination.toLowerCase().includes(text.toLowerCase())
+      )
+    );
+  };
+
   return (
     <View>
       {loading == false ? (
         <View>
-          {focus == true ? (
-            <View>
-              <Text>Search results to be loaded here...</Text>
-              {/* <SearchResults
-                navigation={props.navigation}
-                filteredData={filteredData}
-              /> */}
-            </View>
-          ) : (
-            <View style={{ backgroundColor: COLORS.white }}>
-              <View
-                style={{
-                  backgroundColor: COLORS.headerTheme4,
-                  paddingHorizontal: 5,
-                }}
-              >
-                <Text style={styles.pageTitle}>Buses Location</Text>
-                <View style={styles.inLineRow}>
-                  <View style={styles.searchContainer}>
-                    <Icon
-                      type={'MaterialIcons'}
-                      name="search"
-                      color={'grey'}
-                      size={16}
-                    />
-                    <TextInput placeholder="Search..." style={styles.input} />
-                  </View>
-                  <View style={styles.locationContainer}>
-                    <Icon
-                      type={'MaterialIcons'}
-                      name="location-on"
-                      color={'white'}
-                      size={16}
-                    />
-                    <Text style={styles.locationText}>Jajpur, Odisha</Text>
-                  </View>
+          <View style={{ backgroundColor: COLORS.white }}>
+            <View
+              style={{
+                backgroundColor: COLORS.headerTheme4,
+                paddingHorizontal: 5,
+              }}
+            >
+              <Text style={styles.pageTitle}>Buses Location</Text>
+              <View style={styles.inLineRow}>
+                <View style={styles.searchContainer}>
+                  <Icon
+                    type={'MaterialIcons'}
+                    name="search"
+                    color={'grey'}
+                    size={18}
+                  />
+                  <TextInput
+                    placeholder="Search..."
+                    style={styles.input}
+                    onFocus={openList}
+                    onChangeText={(text) => seachBuses(text)}
+                  />
+                  {/* {focus ? ( */}
+                  <Icon
+                    type={'MaterialIcons'}
+                    name="close"
+                    color={focus ? '#333' : '#EEE'}
+                    size={18}
+                    onPress={onBlur}
+                    style={{ position: 'relative', right: 1 }}
+                  />
+                  {/* ) : null} */}
+                </View>
+                <View style={styles.locationContainer}>
+                  <Icon
+                    type={'MaterialIcons'}
+                    name="location-on"
+                    color={'white'}
+                    size={16}
+                  />
+                  <Text style={styles.locationText}>Jajpur, Odisha</Text>
                 </View>
               </View>
-
-              <ScrollView>
-                <View style={{ padding: 2 }}>
-                  <ListHeader />
-                </View>
-                {busesData.length > 0 ? (
-                  <View>
-                    <Text>{busesData.length}</Text>
-                    <View style={styles.listContainer}>
-                      {busesData.map((item, index) => {
-                        return (
-                          <BusesData
-                            navigation={props.navigation}
-                            key={item._id}
-                            index={index}
-                            item={item}
-                          />
-                        );
-                      })}
-                    </View>
-                  </View>
-                ) : (
-                  <View style={[styles.center, { height: height / 2 }]}>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        color: 'gray',
-                        textAlign: 'center',
-                      }}
-                    >
-                      Wait a moment!!!
-                    </Text>
-                  </View>
-                )}
-              </ScrollView>
             </View>
-          )}
+            
+            
+            <ScrollView>
+              <View style={{ padding: 2 }}>
+                <ListHeader />
+              </View>
+              {filteredData.length > 0 ? (
+                <View>
+                  <View style={styles.listContainer}>
+                    {filteredData.map((item, index) => {
+                      return (
+                        <BusesCard
+                          navigation={props.navigation}
+                          key={item._id}
+                          index={index}
+                          item={item}
+                        />
+                      );
+                    })}
+                  </View>
+                </View>
+              ) : (
+                <View style={[styles.center, { height: height / 2 }]}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color: 'gray',
+                      textAlign: 'center',
+                    }}
+                  >
+                    No data to show !!!
+                  </Text>
+                </View>
+              )}
+            </ScrollView>
+            {/* )} */}
+          </View>
         </View>
       ) : (
         // Loading will go here
         <View style={styles.spinner}>
           <ActivityIndicator
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              top: height / 2 - 40,
+              height: 20,
+            }}
             size="large"
             color="orange"
           />
@@ -204,7 +239,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 5,
     paddingHorizontal: 10,
-    backgroundColor: COLORS.headerTheme4,
+    backgroundColor: COLORS.grey2,
     borderRadius: 2,
     elevation: 1,
   },
@@ -239,9 +274,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 10,
+    justifyContent: 'space-between',
   },
   input: {
-    height: 28,
+    height: 32,
+    alignSelf:'flex-start'
   },
   locationContainer: {
     flexDirection: 'row',

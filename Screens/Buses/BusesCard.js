@@ -9,7 +9,7 @@ import {
   Dimensions,
 } from 'react-native';
 import React, { useState } from 'react';
-import { assets, COLORS, SIZES } from '../../constants';
+import { COLORS, SIZES } from '../../constants/theme';
 import { color, Icon } from '@rneui/base';
 import { colors } from '../../assets/global/globalStyles';
 import { controls } from '../../assets/global/controls';
@@ -17,7 +17,7 @@ import { controls } from '../../assets/global/controls';
 
 var { height, width } = Dimensions.get('window');
 
-const BusesData = (props) => {
+const BusesCard = (props) => {
   const { index, item } = props;
 
   return (
@@ -57,7 +57,7 @@ const BusesData = (props) => {
   );
 };
 
-export default BusesData;
+export default BusesCard;
 
 const styles = StyleSheet.create({
   shadowProps: {

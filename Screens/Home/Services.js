@@ -18,7 +18,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import baseUrl from '../../assets/common/baseUrl';
 import axios from 'axios';
 
-import { COLORS, SIZES, SHADOWS, assets, FONTS } from '../../constants';
+import { COLORS, SIZES, SHADOWS, assets, FONTS } from '../../constants/theme';
 import { CircleButton } from '../../components/Button';
 import SearchResults from './SearchResults';
 import ServicesCard from './ServicesCard';

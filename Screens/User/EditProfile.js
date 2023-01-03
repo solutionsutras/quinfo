@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Button } from 'native-base';
-import { assets, COLORS, SIZES } from '../../constants'
+import { COLORS, SIZES } from '../../constants/theme'
 
 import axios from 'axios';
 import baseUrl from '../../assets/common/baseUrl';

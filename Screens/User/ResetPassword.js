@@ -8,7 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 import { Button } from 'native-base';
-import { assets, COLORS, SIZES } from '../../constants'
+import { COLORS, SIZES } from '../../constants/theme';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import EasyButton from '../../Shared/StyledComponents/EasyButton';
@@ -73,7 +73,7 @@ const ResetPassword = (props) => {
 
   useEffect(() => {
     setConfig({ headers: { Authorization: `Bearer ${token}` } });
-    return () => { };
+    return () => {};
   }, [token]);
 
   const sendSms = () => {
@@ -285,13 +285,15 @@ const ResetPassword = (props) => {
           <View>
             {error ? <Error message={error} /> : null}
 
-            <TouchableOpacity style={[styles.buttonStyle,
-            { backgroundColor: COLORS.headerTheme4 }]}
+            <TouchableOpacity
+              style={[
+                styles.buttonStyle,
+                { backgroundColor: COLORS.headerTheme4 },
+              ]}
               // disabled={!agree}
-              onPress={() => sendSms()}>
-              <Text style={styles.loginText}>
-                SEND OTP
-              </Text>
+              onPress={() => sendSms()}
+            >
+              <Text style={styles.loginText}>SEND OTP</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -362,13 +364,12 @@ const ResetPassword = (props) => {
         </View>
       )}
 
-      <TouchableOpacity style={[styles.buttonStyle,
-      { backgroundColor: COLORS.headerTheme2 }]}
+      <TouchableOpacity
+        style={[styles.buttonStyle, { backgroundColor: COLORS.headerTheme2 }]}
         // disabled={!agree}
-        onPress={() => props.navigation.navigate('Login')}>
-        <Text style={styles.loginText}>
-          BACK TO LOGIN
-        </Text>
+        onPress={() => props.navigation.navigate('Login')}
+      >
+        <Text style={styles.loginText}>BACK TO LOGIN</Text>
       </TouchableOpacity>
     </FormContainer>
   );
@@ -438,7 +439,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     marginTop: 15,
-    marginLeft: 8
+    marginLeft: 8,
   },
   countryCode: {
     backgroundColor: 'white',

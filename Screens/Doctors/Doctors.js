@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import React, { useState } from 'react';
-import { COLORS, SIZES } from '../../constants';
+import { COLORS, SIZES } from '../../constants/theme';
 import { color, Icon } from '@rneui/base';
 
 const Doctors = () => {

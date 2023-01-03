@@ -7,6 +7,7 @@ import govt from '../assets/images/govt.jpeg';
 import heart from '../assets/icons/heart.png';
 import search from '../assets/icons/search.png';
 import userid from '../assets/icons/userid.png';
+import busBg from '../assets/images/busBg.jpg';
 
 
 export default {
@@ -19,4 +20,5 @@ export default {
   heart,
   search,
   userid,
+  busBg
 };

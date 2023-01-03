@@ -8,7 +8,8 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import { COLORS, SIZES, SHADOWS, assets, FONTS } from '../../constants';
+import { assets, COLORS, SIZES, SHADOWS, FONTS } from '../../constants/theme';
+
 import { CircleButton } from '../../components/Button';
 // import React, { useState } from 'react';
 var { height, width } = Dimensions.get('window');

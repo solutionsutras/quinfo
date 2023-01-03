@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, Image, TextInput } from 'react-native';
-import { COLORS, FONTS, SIZES, assets } from '../constants';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { View, Text, Image, TextInput, StyleSheet } from 'react-native';
+import { assets, COLORS, FONTS, SIZES } from '../constants/theme';
 import AuthGlobal from '../Context/store/AuthGlobal';
 import { checkLogin } from './CheckLogin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,28 +13,30 @@ const HomeHeader = () => {
   const context = useContext(AuthGlobal);
   const [user, setUser] = useState();
 
-  useEffect(() => {
-    if (
-      context.stateUser.isAuthenticated === false ||
-      context.stateUser.isAuthenticated === null
-    ) {
-      setUser(null);
-    } else {
-      AsyncStorage.getItem('jwt')
-        .then((res) => {
-          axios
-            .get(`${baseUrl}users/${context.stateUser.user.userId}`, {
-              headers: { Authorization: `Bearer ${res}` },
-            })
-            .then((userRec) => {
-              setUser(userRec.data);
-            });
-        })
-        .catch((error) => console.log(error));
-    }
+  useFocusEffect(
+    useCallback(() => {
+      if (context.stateUser.isAuthenticated === true) {
+        AsyncStorage.getItem('jwt')
+          .then((res) => {
+            axios
+              .get(`${baseUrl}users/${context.stateUser.user.userId}`, {
+                headers: { Authorization: `Bearer ${res}` },
+              })
+              .then((userRec) => {
+                setUser(userRec.data);
+              });
+          })
+          .catch((error) => console.log(error));
+      }
 
+      return () => {};
+    }, [])
+  );
+
+  useEffect(() => {
+    // console.log('user.avtar: ', user.avtar);
     return () => {};
-  }, []);
+  }, [user]);
 
   return (
     <View
@@ -43,31 +46,41 @@ const HomeHeader = () => {
         zIndex: 1,
       }}
     >
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Text
+      {user ? (
+        <View
           style={{
-            fontFamily: FONTS.regular,
-            fontSize: SIZES.small,
-            color: COLORS.white,
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
           }}
         >
-          Hello {user ? user.name.split(' ')[0] : 'Dear citizen'} 👋 Welcome to
-          Quinfo
-        </Text>
-        <View style={{}}>
-          <Image
-            source={assets.userid}
-            resizeMode="contain"
-            style={{ width: 24, height: 18, cursor: 'pointer' }}
-          />
+          <View style={styles.profileImageView}>
+            <Image
+              source={
+                user.avtar && user.avtar !== ' '
+                  ? { uri: user.avtar }
+                  : assets.userid
+              }
+              resizeMode="contain"
+              style={styles.image}
+            />
+          </View>
+          <Text
+            style={{
+              fontFamily: FONTS.regular,
+              fontSize: SIZES.small,
+              color: COLORS.white,
+            }}
+          >
+            Hello {user ? user.name.split(' ')[0] : 'Dear citizen'} 👋 Welcome
+            to Quinfo
+          </Text>
         </View>
-      </View>
+      ) : (
+        <View>
+          <Text>Loading...</Text>
+        </View>
+      )}
       {/* 
       <View style={{ marginVertical: SIZES.font }}>
         <Text
@@ -92,17 +105,16 @@ const HomeHeader = () => {
             alignItems: 'center',
             paddingHorizontal: SIZES.font,
             paddingVertical: SIZES.small - 5,
+            justifyContent: 'space-between',
           }}
         >
           <Icon type={'font-awesome'} name="search" color={'grey'} size={16} />
-          {/* <Image
-            source={assets.search}
-            resizeMode="contain"
-            style={{ width: 20, height: 20, marginRight: SIZES.base }}
-          /> */}
           <TextInput
             placeholder="Search..."
             style={{ marginLeft: 10, height: 20 }}
+          />
+          <Icon type={'font-awesome'} name="close" color={'grey'} size={16} 
+          // onPress={onblur}
           />
         </View>
       </View>
@@ -111,3 +123,17 @@ const HomeHeader = () => {
 };
 
 export default HomeHeader;
+
+const styles = StyleSheet.create({
+  profileImageView: {
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: '#EEE',
+    padding: 2,
+  },
+  image: {
+    width: 18,
+    height: 18,
+    cursor: 'pointer',
+  },
+});

@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { Button } from 'native-base';
-import { assets, COLORS, SIZES } from '../../constants';
+import { COLORS, SIZES } from '../../constants/theme';
 import Checkbox from 'expo-checkbox';
 
 import axios from 'axios';
