@@ -32,7 +32,7 @@ import { colors } from '../../assets/global/globalStyles';
 const Login = (props) => {
   const [from, setFrom] = useState(props.route.params.fromNav);
   const context = useContext(AuthGlobal);
-  const [userName, setUserName] = useState('+919337245731');
+  const [userName, setUserName] = useState('q1@gmail.com');
   const [phone, setPhone] = useState();
   const [password, setPassword] = useState('123');
   const [error, setError] = useState();

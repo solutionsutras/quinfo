@@ -267,6 +267,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     height: 40,
     borderRadius: 5,
+    width:200,
   },
   loginText: {
     color: 'white',

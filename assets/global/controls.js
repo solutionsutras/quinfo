@@ -1,4 +1,4 @@
 export const controls={
-    businessName:"RAT Build Sol",
+    businessName:"Quinfo Services",
     currency:"₹ "
     }
