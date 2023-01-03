@@ -13,7 +13,6 @@ import { store } from './Redux/store';
 import Auth from './Context/store/Auth';
 import RootNavigator from './Navigators/RootNavigator';
 import HomeHeader from './components/HomeHeader';
-import PrintInvoice from './Shared/PrintInvoice';
 import Buses from './Screens/Buses/Buses';
 
 const App = () => {
@@ -31,8 +30,8 @@ const App = () => {
         <NativeBaseProvider>
           <NavigationContainer>
             <Header />
-            {/* <RootNavigator /> */}
-            <Buses/>
+            <RootNavigator />
+            {/* <Buses/> */}
           </NavigationContainer>
         </NativeBaseProvider>
       </Provider>
