@@ -158,7 +158,8 @@ export default Login;
 const styles = StyleSheet.create({
   mainContainer: {
     height: '100%',
-    paddingHorizontal: 30,
+    // paddingHorizontal: 5,
+    // width:'100%',
     paddingTop: 30,
     backgroundColor: '#fff',
   },

@@ -178,7 +178,7 @@ const Buses = (props) => {
             
             <ScrollView>
               <View style={{ padding: 2 }}>
-                <ListHeader />
+                {/* <ListHeader /> */}
               </View>
               {filteredData.length > 0 ? (
                 <View>
@@ -275,6 +275,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 10,
     justifyContent: 'space-between',
+    marginLeft:10
   },
   input: {
     height: 32,
