@@ -130,7 +130,7 @@ const Buses = (props) => {
     <View>
       {loading == false ? (
         <View>
-          <View style={{ backgroundColor: COLORS.white }}>
+          <View style={{backgroundColor:COLORS.grey5}}>
             <View
               style={{
                 backgroundColor: COLORS.headerTheme4,
