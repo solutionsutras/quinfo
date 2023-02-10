@@ -70,8 +70,8 @@ const BusesCard = (props) => {
                 <Text style={{ fontSize: 18, textAlign: 'center', fontWeight:'bold' }}>Seats</Text>
               </View>
 
-              <View style={{ borderWidth: 1, width: 70, borderRadius: 5, backgroundColor:'white' }}>
-                <View style={{ flexDirection: 'row', borderBottomWidth: 1, paddingLeft: 10 }}>
+              <View style={{ borderWidth: 1,borderColor:'white', width: 70, borderRadius: 5, backgroundColor:'white' }}>
+                <View style={{ flexDirection: 'row', borderBottomWidth: 0.5, paddingLeft: 10,borderColor:'grey4' }}>
                   <Icon
                     type={'MaterialIcons'}
                     name="star"
